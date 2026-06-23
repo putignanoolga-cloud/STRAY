@@ -2,206 +2,204 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stray — Registrati</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital,wght@1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{--amber:#e8a44a;--amber-dim:#c47a1a;--bg:#05060a;--border:rgba(255,255,255,0.09);--muted:rgba(255,255,255,0.38);--text:rgba(255,255,255,0.85);}
-html,body{min-height:100%;width:100%;background:#05060a;font-family:"Inter",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 10%,rgba(232,164,74,0.06) 0%,transparent 55%),radial-gradient(ellipse at 75% 90%,rgba(30,82,153,0.07) 0%,transparent 55%);pointer-events:none;z-index:0;}
-#stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+:root{
+  --bg:#FBF7F0;--surface:#FFFFFF;--surface-2:#F4EEE4;
+  --ink:#1E2A28;--ink-soft:#5E6E6A;--ink-faint:#94A09C;
+  --line:rgba(30,42,40,0.10);
+  --green:#1C9B73;--green-dark:#147257;--green-soft:#E4F3EC;
+  --coral:#F2674A;--coral-soft:#FDE7E0;
+  --radius:20px;
+  --shadow-sm:0 4px 14px rgba(24,48,40,0.06);
+  --shadow:0 14px 38px rgba(24,48,40,0.10);
+  --shadow-lg:0 28px 64px rgba(24,48,40,0.16);
+}
+html,body{min-height:100%;background:var(--bg);font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 18% 8%,rgba(167,227,204,.5) 0%,transparent 45%),
+             radial-gradient(ellipse at 85% 92%,rgba(251,211,198,.5) 0%,transparent 45%);}
+::selection{background:rgba(28,155,115,0.18);}
 
-.back{position:fixed;top:22px;left:20px;z-index:50;display:flex;align-items:center;gap:7px;font-size:.75rem;letter-spacing:.06em;color:var(--muted);text-decoration:none;transition:color .2s;}
-.back:hover{color:var(--amber);}
+.back{position:fixed;top:18px;left:16px;z-index:50;display:flex;align-items:center;gap:7px;font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:9px 14px 9px 11px;background:var(--surface);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow-sm);transition:color .2s,transform .15s;}
+.back:hover{color:var(--green);transform:translateX(-2px);}
 
-.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:80px 24px 64px;}
+.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:78px 18px 56px;}
 
-/* step dots */
-.steps{display:flex;align-items:center;margin-bottom:36px;}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);transition:background .35s,transform .35s;}
-.dot.active{background:var(--amber);transform:scale(1.35);}
-.dot.done{background:rgba(232,164,74,0.4);}
-.sline{width:28px;height:1px;background:rgba(255,255,255,0.1);transition:background .35s;}
-.sline.done{background:rgba(232,164,74,0.35);}
+/* progress */
+.progress{display:flex;align-items:center;gap:0;margin-bottom:30px;}
+.pdot{width:9px;height:9px;border-radius:50%;background:rgba(30,42,40,.14);transition:all .35s;}
+.pdot.active{background:var(--green);transform:scale(1.5);box-shadow:0 0 0 4px var(--green-soft);}
+.pdot.done{background:var(--green);}
+.pline{width:30px;height:2px;background:rgba(30,42,40,.1);transition:background .35s;}
+.pline.done{background:var(--green);}
 
-.card{width:100%;max-width:440px;background:rgba(12,13,20,0.95);border:1px solid rgba(255,255,255,0.10);border-radius:24px;padding:36px 28px 32px;}
+.card{width:100%;max-width:450px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:34px 28px 30px;box-shadow:var(--shadow);}
 
-.screen{display:none;}
+.screen{display:none;animation:fade .4s ease;}
 .screen.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-.eyebrow{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;display:block;}
-.title{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,5vw,2.5rem);font-weight:300;line-height:1.1;color:#fff;}
-.title em{font-style:italic;color:var(--amber);}
-.subtitle{font-size:.83rem;color:var(--muted);margin-top:10px;line-height:1.55;}
-.divider{width:36px;height:1px;background:var(--amber);margin:20px 0;opacity:.4;}
+.eyebrow{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--green-soft);padding:5px 12px;border-radius:20px;margin-bottom:16px;}
+.title{font-family:"Fraunces",serif;font-size:clamp(1.9rem,6vw,2.5rem);font-weight:500;line-height:1.05;letter-spacing:-0.01em;color:var(--ink);}
+.title em{font-style:italic;color:var(--green);}
+.subtitle{font-size:.9rem;color:var(--ink-soft);margin-top:12px;line-height:1.55;}
+.divider{width:40px;height:3px;background:var(--green);border-radius:3px;margin:20px 0;opacity:.55;}
 
 /* access comparison */
-.access-grid{display:flex;flex-direction:column;gap:10px;margin:18px 0 4px;}
-.access-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;}
-.ac-icon{font-size:1rem;flex-shrink:0;width:28px;text-align:center;}
-.ac-label{font-size:.8rem;color:rgba(255,255,255,0.7);flex:1;}
-.ac-anon{font-size:.72rem;color:#b84040;background:rgba(184,64,64,0.1);border:1px solid rgba(184,64,64,0.2);padding:3px 8px;border-radius:6px;flex-shrink:0;}
-.ac-reg{font-size:.72rem;color:#4aae6a;background:rgba(74,174,106,0.1);border:1px solid rgba(74,174,106,0.2);padding:3px 8px;border-radius:6px;flex-shrink:0;}
+.access-grid{display:flex;flex-direction:column;gap:9px;margin:18px 0 4px;}
+.access-row{display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--surface-2);border-radius:14px;}
+.ac-icon{font-size:1.1rem;flex-shrink:0;width:26px;text-align:center;}
+.ac-label{font-size:.83rem;color:var(--ink-soft);flex:1;line-height:1.35;}
+.ac-tag{font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:8px;flex-shrink:0;}
+.ac-all{background:var(--green-soft);color:var(--green-dark);}
+.ac-reg{background:var(--coral-soft);color:#C8442A;}
 
 /* type selector */
-.type-grid{display:flex;gap:10px;margin:4px 0;}
-.type-card{flex:1;padding:18px 14px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:16px;cursor:pointer;text-align:center;transition:all .2s;}
-.type-card:hover{background:rgba(255,255,255,0.07);}
-.type-card.sel{border-color:var(--amber);background:rgba(232,164,74,0.08);}
-.type-emoji{font-size:1.8rem;margin-bottom:8px;}
-.type-name{font-size:.85rem;font-weight:600;color:#fff;margin-bottom:4px;}
-.type-desc{font-size:.72rem;color:var(--muted);line-height:1.35;}
+.type-grid{display:flex;gap:12px;margin:4px 0;}
+.type-card{flex:1;padding:20px 14px;background:var(--surface);border:2px solid var(--line);border-radius:18px;cursor:pointer;text-align:center;transition:all .2s;}
+.type-card:hover{border-color:var(--ink-faint);}
+.type-card.sel{border-color:var(--green);background:var(--green-soft);}
+.type-emoji{font-size:2rem;margin-bottom:8px;}
+.type-name{font-size:.92rem;font-weight:700;margin-bottom:5px;}
+.type-desc{font-size:.74rem;color:var(--ink-soft);line-height:1.4;}
+
+/* avatar picker */
+.avatar-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:2px;}
+.av{width:48px;height:48px;border-radius:14px;border:2px solid var(--line);background:var(--surface-2);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .16s;}
+.av:hover{border-color:var(--ink-faint);}
+.av.sel{border-color:var(--green);background:var(--green-soft);transform:scale(1.05);}
 
 /* form */
-.form{display:flex;flex-direction:column;gap:14px;}
-.field{display:flex;flex-direction:column;gap:6px;}
-.field label{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
-.field input,.field select,.field textarea{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;color:#fff;font-size:.9rem;font-family:"Inter",sans-serif;font-weight:300;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s,background .2s;}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px;cursor:pointer;}
-.field select option{background:#0d0e14;color:#fff;}
-.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.2);}
-.field textarea{min-height:70px;resize:vertical;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--amber);background:rgba(255,255,255,0.07);}
-.field input.err{border-color:#b84040;}
-.str-bar{height:2px;border-radius:2px;background:rgba(255,255,255,0.07);margin-top:5px;overflow:hidden;}
-.str-fill{height:100%;border-radius:2px;width:0;transition:width .35s,background .35s;}
-.str-label{font-size:.68rem;margin-top:4px;}
+.form{display:flex;flex-direction:column;gap:15px;}
+.field{display:flex;flex-direction:column;gap:7px;}
+.field label{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);}
+.field input,.field textarea{width:100%;padding:13px 15px;background:var(--surface-2);border:1.5px solid transparent;border-radius:13px;color:var(--ink);font-size:1rem;font-family:inherit;outline:none;transition:border-color .18s,background .18s;}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-faint);}
+.field textarea{min-height:74px;resize:vertical;}
+.field input:focus,.field textarea:focus{border-color:var(--green);background:var(--surface);}
+.field input.err{border-color:var(--coral);background:var(--coral-soft);}
+.str-bar{height:5px;border-radius:5px;background:var(--surface-2);margin-top:6px;overflow:hidden;}
+.str-fill{height:100%;border-radius:5px;width:0;transition:width .35s,background .35s;}
+.str-label{font-size:.72rem;margin-top:5px;font-weight:600;}
 
 /* country grid */
-.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
-.cbtn{display:flex;align-items:center;gap:8px;padding:10px 13px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:11px;font-size:.81rem;color:var(--muted);cursor:pointer;transition:all .15s;text-align:left;width:100%;}
-.cbtn:hover{background:rgba(255,255,255,0.07);color:#fff;}
-.cbtn.sel{border-color:var(--amber);background:rgba(232,164,74,0.1);color:#fff;}
+.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:4px;}
+.cbtn{display:flex;align-items:center;gap:9px;padding:12px 14px;background:var(--surface);border:1.5px solid var(--line);border-radius:13px;font-size:.86rem;font-weight:500;color:var(--ink-soft);cursor:pointer;transition:all .15s;text-align:left;width:100%;font-family:inherit;}
+.cbtn:hover{border-color:var(--ink-faint);}
+.cbtn.sel{border-color:var(--green);background:var(--green-soft);color:var(--ink);}
+.cbtn .cf{font-size:1.2rem;}
 
 /* terms */
-.terms{display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:2px 0;}
-.tbox{width:18px;height:18px;flex-shrink:0;border:1px solid var(--border);border-radius:5px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;margin-top:2px;transition:border-color .2s,background .2s;}
-.tbox.on{border-color:var(--amber);background:rgba(232,164,74,0.15);}
+.terms{display:flex;align-items:flex-start;gap:12px;cursor:pointer;padding:4px 0;}
+.tbox{width:22px;height:22px;flex-shrink:0;border:2px solid var(--line);border-radius:7px;background:var(--surface);display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s;}
+.tbox.on{border-color:var(--green);background:var(--green);}
 .tbox svg{display:none;}
 .tbox.on svg{display:block;}
-.terms-txt{font-size:.78rem;color:var(--muted);line-height:1.45;}
-.terms-txt a{color:var(--amber);text-decoration:none;}
+.terms-txt{font-size:.82rem;color:var(--ink-soft);line-height:1.5;}
+.terms-txt a{color:var(--green);font-weight:600;text-decoration:none;}
 
 /* buttons */
-.btn{width:100%;padding:15px;background:var(--amber);color:#05060a;border:none;border-radius:12px;font-size:.95rem;font-weight:600;font-family:"Inter",sans-serif;cursor:pointer;letter-spacing:.02em;transition:background .2s,transform .12s,opacity .2s;margin-top:4px;}
-.btn:hover{background:var(--amber-dim);}
+.btn{width:100%;padding:15px;background:var(--green);color:#fff;border:none;border-radius:14px;font-size:1rem;font-weight:700;font-family:inherit;cursor:pointer;transition:background .2s,transform .12s,opacity .2s;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn:hover{background:var(--green-dark);}
 .btn:active{transform:scale(.98);}
-.btn:disabled{opacity:.45;cursor:not-allowed;}
-.btn-ghost{width:100%;padding:13px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted);border-radius:12px;font-size:.9rem;font-family:"Inter",sans-serif;cursor:pointer;margin-top:8px;transition:border-color .2s,color .2s;}
-.btn-ghost:hover{border-color:rgba(255,255,255,0.25);color:#fff;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.btn-ghost{width:100%;padding:13px;background:transparent;border:1.5px solid var(--line);color:var(--ink-soft);border-radius:14px;font-size:.92rem;font-weight:600;font-family:inherit;cursor:pointer;margin-top:9px;transition:all .2s;}
+.btn-ghost:hover{border-color:var(--ink-faint);color:var(--ink);}
 
 /* success */
-.suc-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;}
-.suc-ring{width:72px;height:72px;border-radius:50%;background:rgba(232,164,74,0.1);border:1px solid rgba(232,164,74,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:4px;animation:pop .5s cubic-bezier(.22,1,.36,1);}
-@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-.suc-title{font-family:"Cormorant Garamond",serif;font-size:1.9rem;font-weight:300;color:#fff;line-height:1.1;}
-.suc-sub{font-size:.83rem;color:var(--muted);line-height:1.6;}
-.suc-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(232,164,74,0.1);border:1px solid rgba(232,164,74,0.25);border-radius:20px;font-size:.82rem;color:rgba(255,255,255,0.75);margin:4px 0;}
-.suc-perks{display:flex;flex-direction:column;gap:8px;width:100%;margin:8px 0;}
-.perk{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:11px;font-size:.78rem;color:rgba(255,255,255,0.65);text-align:left;}
-.btn-go{display:inline-block;padding:13px 32px;background:var(--amber);color:#05060a;border-radius:30px;font-size:.88rem;font-weight:600;text-decoration:none;margin-top:8px;transition:background .2s;}
-.btn-go:hover{background:var(--amber-dim);}
+.suc-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:13px;}
+.suc-ring{width:84px;height:84px;border-radius:50%;background:var(--green-soft);display:flex;align-items:center;justify-content:center;margin-bottom:4px;animation:pop .55s cubic-bezier(.22,1.4,.36,1);}
+@keyframes pop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
+.suc-title{font-family:"Fraunces",serif;font-size:2rem;font-weight:500;line-height:1.1;}
+.suc-sub{font-size:.9rem;color:var(--ink-soft);line-height:1.6;white-space:pre-line;}
+.suc-badge{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:var(--green-soft);border-radius:20px;font-size:.86rem;font-weight:600;color:var(--green-dark);margin:4px 0;}
+.suc-perks{display:flex;flex-direction:column;gap:9px;width:100%;margin:10px 0;}
+.perk{display:flex;align-items:center;gap:11px;padding:12px 15px;background:var(--surface-2);border-radius:13px;font-size:.84rem;color:var(--ink-soft);text-align:left;}
+.perk .pk-ico{font-size:1.1rem;}
+.btn-go{display:inline-flex;align-items:center;gap:8px;padding:15px 34px;background:var(--green);color:#fff;border-radius:14px;font-size:.96rem;font-weight:700;text-decoration:none;margin-top:8px;transition:background .2s,transform .12s;}
+.btn-go:hover{background:var(--green-dark);transform:translateY(-1px);}
 
-.login-link{text-align:center;font-size:.78rem;color:var(--muted);margin-top:20px;}
-.login-link a{color:var(--amber);text-decoration:none;}
+.login-link{text-align:center;font-size:.85rem;color:var(--ink-soft);margin-top:22px;}
+.login-link a{color:var(--green);font-weight:700;text-decoration:none;}
 
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(232,164,74,.96);color:#05060a;padding:9px 22px;border-radius:30px;font-size:.83rem;font-weight:600;opacity:0;transition:all .28s;z-index:300;pointer-events:none;white-space:nowrap;}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(18px);background:var(--ink);color:#fff;padding:13px 24px;border-radius:30px;font-size:.88rem;font-weight:600;opacity:0;transition:all .3s;z-index:300;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow-lg);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001s !important;}}
 </style>
 </head>
-<body style="background:#05060a;">
-
-<canvas id="stars"></canvas>
+<body>
 
 <a class="back" href="index.html">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
   Stray
 </a>
 
 <div class="page">
-
-  <div class="steps" id="step-dots">
-    <div class="dot active" id="d0"></div>
-    <div class="sline" id="l0"></div>
-    <div class="dot" id="d1"></div>
-    <div class="sline" id="l1"></div>
-    <div class="dot" id="d2"></div>
-    <div class="sline" id="l2"></div>
-    <div class="dot" id="d3"></div>
-    <div class="sline" id="l3"></div>
-    <div class="dot" id="d4"></div>
+  <div class="progress" id="progress">
+    <div class="pdot active" id="d0"></div><div class="pline" id="l0"></div>
+    <div class="pdot" id="d1"></div><div class="pline" id="l1"></div>
+    <div class="pdot" id="d2"></div><div class="pline" id="l2"></div>
+    <div class="pdot" id="d3"></div><div class="pline" id="l3"></div>
+    <div class="pdot" id="d4"></div>
   </div>
 
   <div class="card">
 
-    <!-- S0: perche registrarsi -->
+    <!-- S0 -->
     <div class="screen active" id="s0">
-      <span class="eyebrow">Perche registrarsi</span>
-      <div class="title">Vedi<br><em>tutto.</em></div>
-      <p class="subtitle">Chiunque puo segnalare un animale. Ma solo gli utenti registrati vedono i dettagli completi per poter intervenire.</p>
-      <div class="divider"></div>
+      <span class="eyebrow">Perché registrarsi</span>
+      <div class="title">Vedi <em>tutto.</em></div>
+      <p class="subtitle">Chiunque può segnalare un animale. Ma solo gli utenti registrati vedono i dettagli completi per poter intervenire.</p>
       <div class="access-grid">
-        <div class="access-row">
-          <div class="ac-icon">&#128247;</div>
-          <div class="ac-label">Foto + paese della segnalazione</div>
-          <span class="ac-reg">Tutti</span>
-        </div>
-        <div class="access-row">
-          <div class="ac-icon">&#128205;</div>
-          <div class="ac-label">Indirizzo esatto dove trovare l animale</div>
-          <span class="ac-anon">Solo registrati</span>
-        </div>
-        <div class="access-row">
-          <div class="ac-icon">&#128222;</div>
-          <div class="ac-label">Contatti di chi ha segnalato</div>
-          <span class="ac-anon">Solo registrati</span>
-        </div>
-        <div class="access-row">
-          <div class="ac-icon">&#129306;</div>
-          <div class="ac-label">Rispondere e dire "mi occupo io"</div>
-          <span class="ac-anon">Solo registrati</span>
-        </div>
+        <div class="access-row"><div class="ac-icon">📷</div><div class="ac-label">Foto e paese della segnalazione</div><span class="ac-tag ac-all">Tutti</span></div>
+        <div class="access-row"><div class="ac-icon">📍</div><div class="ac-label">Indirizzo esatto dove trovare l'animale</div><span class="ac-tag ac-reg">Registrati</span></div>
+        <div class="access-row"><div class="ac-icon">📞</div><div class="ac-label">Contatti di chi ha segnalato</div><span class="ac-tag ac-reg">Registrati</span></div>
+        <div class="access-row"><div class="ac-icon">🤝</div><div class="ac-label">Rispondere e dire "mi occupo io"</div><span class="ac-tag ac-reg">Registrati</span></div>
       </div>
-      <button class="btn" style="margin-top:20px" onclick="goTo(1)">Registrati ora</button>
-      <p class="login-link">Hai gia un account? <a href="#">Accedi</a></p>
+      <button class="btn" onclick="goTo(1)">Registrati ora</button>
+      <p class="login-link">Hai già un account? <a href="account.html">Accedi</a></p>
     </div>
 
-    <!-- S1: tipo di account -->
+    <!-- S1 -->
     <div class="screen" id="s1">
       <span class="eyebrow">Passo 1 di 4</span>
-      <div class="title">Chi<br><em>sei?</em></div>
+      <div class="title">Chi <em>sei?</em></div>
       <p class="subtitle">Scegli il tipo di account. Potrai sempre aggiornare le informazioni dopo.</p>
       <div class="divider"></div>
       <div class="type-grid">
         <div class="type-card sel" id="t-priv" onclick="selType('privato')">
-          <div class="type-emoji">&#128100;</div>
-          <div class="type-name">Privato</div>
-          <div class="type-desc">Volontario individuale che vuole aiutare animali nel suo paese</div>
+          <div class="type-emoji">🙋</div><div class="type-name">Volontario</div>
+          <div class="type-desc">Persona che vuole aiutare gli animali nella sua zona</div>
         </div>
         <div class="type-card" id="t-asso" onclick="selType('associazione')">
-          <div class="type-emoji">&#127968;</div>
-          <div class="type-name">Associazione</div>
-          <div class="type-desc">Organizzazione, canile, rifugio o ente di protezione animali</div>
+          <div class="type-emoji">🏠</div><div class="type-name">Associazione</div>
+          <div class="type-desc">Canile, rifugio o ente di protezione animali</div>
         </div>
       </div>
-      <button class="btn" style="margin-top:20px" onclick="step1()">Continua</button>
+      <button class="btn" onclick="step1()">Continua</button>
       <button class="btn-ghost" onclick="goTo(0)">Indietro</button>
     </div>
 
-    <!-- S2: dati personali (privato) -->
+    <!-- S2 privato -->
     <div class="screen" id="s2-priv">
       <span class="eyebrow">Passo 2 di 4</span>
-      <div class="title">I tuoi<br><em>dati.</em></div>
+      <div class="title">I tuoi <em>dati.</em></div>
       <div class="divider"></div>
       <div class="form">
+        <div class="field"><label>Nome completo</label><input type="text" id="f-nome" placeholder="Es. Giulia Rossi" autocomplete="name"></div>
+        <div class="field"><label>Email</label><input type="text" id="f-email" placeholder="nome@email.com" autocomplete="email"></div>
         <div class="field">
-          <label>Nome completo</label>
-          <input type="text" id="f-nome" placeholder="Es. Giulia Rossi" autocomplete="name">
-        </div>
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="f-email" placeholder="nome@email.com" autocomplete="email">
+          <label>Scegli un avatar</label>
+          <div class="avatar-row" id="avatar-row">
+            <div class="av sel" data-av="cat">🐱</div><div class="av" data-av="dog">🐶</div>
+            <div class="av" data-av="bird">🐦</div><div class="av" data-av="fox">🦊</div><div class="av" data-av="sun">🌻</div>
+          </div>
         </div>
         <div class="field">
           <label>Password</label>
@@ -209,83 +207,61 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           <div class="str-bar"><div class="str-fill" id="sf"></div></div>
           <span class="str-label" id="sl"></span>
         </div>
-        <div class="field">
-          <label>Conferma password</label>
-          <input type="password" id="f-pass2" placeholder="Ripeti la password">
-        </div>
+        <div class="field"><label>Conferma password</label><input type="password" id="f-pass2" placeholder="Ripeti la password"></div>
         <button class="btn" onclick="step2priv()">Continua</button>
         <button class="btn-ghost" onclick="goTo(1)">Indietro</button>
       </div>
     </div>
 
-    <!-- S2: dati associazione -->
+    <!-- S2 associazione -->
     <div class="screen" id="s2-asso">
       <span class="eyebrow">Passo 2 di 4</span>
-      <div class="title">La tua<br><em>associazione.</em></div>
+      <div class="title">La tua <em>associazione.</em></div>
       <div class="divider"></div>
       <div class="form">
-        <div class="field">
-          <label>Nome dell associazione</label>
-          <input type="text" id="a-nome" placeholder="Es. Rifugio Amici Pelosi">
-        </div>
-        <div class="field">
-          <label>Email di contatto</label>
-          <input type="email" id="a-email" placeholder="info@associazione.it">
-        </div>
-        <div class="field">
-          <label>Sito web (opzionale)</label>
-          <input type="url" id="a-sito" placeholder="https://www.associazione.it">
-        </div>
-        <div class="field">
-          <label>Breve descrizione</label>
-          <textarea id="a-desc" placeholder="Chi siete, cosa fate, quanti animali seguite..."></textarea>
-        </div>
+        <div class="field"><label>Nome dell'associazione</label><input type="text" id="a-nome" placeholder="Es. Rifugio Amici Pelosi"></div>
+        <div class="field"><label>Email di contatto</label><input type="text" id="a-email" placeholder="info@associazione.it"></div>
+        <div class="field"><label>Sito web (opzionale)</label><input type="text" id="a-sito" placeholder="https://www.associazione.it"></div>
+        <div class="field"><label>Breve descrizione</label><textarea id="a-desc" placeholder="Chi siete, cosa fate, quanti animali seguite…"></textarea></div>
         <div class="field">
           <label>Password</label>
           <input type="password" id="a-pass" placeholder="Minimo 8 caratteri" oninput="pwStr(this.value)">
-          <div class="str-bar"><div class="str-fill" id="sf"></div></div>
-          <span class="str-label" id="sl"></span>
+          <div class="str-bar"><div class="str-fill" id="sf2"></div></div>
+          <span class="str-label" id="sl2"></span>
         </div>
-        <div class="field">
-          <label>Conferma password</label>
-          <input type="password" id="a-pass2" placeholder="Ripeti la password">
-        </div>
+        <div class="field"><label>Conferma password</label><input type="password" id="a-pass2" placeholder="Ripeti la password"></div>
         <button class="btn" onclick="step2asso()">Continua</button>
         <button class="btn-ghost" onclick="goTo(1)">Indietro</button>
       </div>
     </div>
 
-    <!-- S3: paese di residenza -->
+    <!-- S3 -->
     <div class="screen" id="s3">
       <span class="eyebrow">Passo 3 di 4</span>
-      <div class="title">Il tuo<br><em>paese.</em></div>
-      <p class="subtitle">Vedrai in primo piano le segnalazioni del tuo paese. Potrai comunque navigare tutti i paesi.</p>
+      <div class="title">Il tuo <em>paese.</em></div>
+      <p class="subtitle">Vedrai in primo piano le segnalazioni del tuo paese. Potrai comunque navigare tutti gli altri.</p>
       <div class="divider"></div>
       <div class="country-grid" id="cgrid"></div>
-      <button class="btn" style="margin-top:16px" onclick="step3()">Continua</button>
-      <button class="btn-ghost" id="s3-back" onclick="goTo(2)">Indietro</button>
+      <button class="btn" onclick="step3()">Continua</button>
+      <button class="btn-ghost" onclick="goTo(2)">Indietro</button>
     </div>
 
-    <!-- S4: termini -->
+    <!-- S4 -->
     <div class="screen" id="s4">
       <span class="eyebrow">Passo 4 di 4</span>
-      <div class="title">Quasi<br><em>fatto.</em></div>
+      <div class="title">Quasi <em>fatto.</em></div>
       <p class="subtitle">Leggi e accetta i termini per completare la registrazione.</p>
       <div class="divider"></div>
       <div class="form">
-        <label class="terms" onclick="toggleT()">
-          <div class="tbox" id="tbox">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="terms-txt">Accetto i <a href="#" onclick="return false">Termini di servizio</a> e la <a href="#" onclick="return false">Privacy Policy</a> di Stray. Capisco che i miei dati saranno visibili ad altri utenti registrati ai fini del salvataggio di animali.</span>
+        <label class="terms" onclick="toggleT('tbox')">
+          <div class="tbox on" id="tbox"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span class="terms-txt">Accetto i <a href="#" onclick="return false">Termini di servizio</a> e la <a href="#" onclick="return false">Privacy Policy</a> di Stray. Capisco che i miei dati saranno visibili agli altri utenti registrati ai fini del salvataggio degli animali.</span>
         </label>
-        <label class="terms" onclick="toggleT2()">
-          <div class="tbox" id="tbox2">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="terms-txt">Acconsento a ricevere notifiche per nuove segnalazioni nel mio paese (opzionale).</span>
+        <label class="terms" onclick="toggleT('tbox2')">
+          <div class="tbox" id="tbox2"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span class="terms-txt">Voglio ricevere notifiche per nuove segnalazioni nel mio paese (opzionale).</span>
         </label>
-        <button class="btn" id="btn-reg" onclick="step4()">Registrati</button>
+        <button class="btn" id="btn-reg" onclick="step4()">Crea il mio account</button>
         <button class="btn-ghost" onclick="goTo(3)">Indietro</button>
       </div>
     </div>
@@ -293,19 +269,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
     <!-- SUCCESS -->
     <div class="screen" id="s-ok">
       <div class="suc-wrap">
-        <div class="suc-ring">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
+        <div class="suc-ring"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="suc-title" id="ok-title">Benvenuto.</div>
-        <p class="suc-sub" id="ok-sub">Il tuo account e pronto.</p>
+        <p class="suc-sub" id="ok-sub">Il tuo account è pronto.</p>
         <div class="suc-badge" id="ok-badge"></div>
         <div class="suc-perks">
-          <div class="perk">&#128205; Indirizzo esatto di ogni segnalazione</div>
-          <div class="perk">&#128222; Contatti diretti di chi ha segnalato</div>
-          <div class="perk">&#129306; Puoi rispondere e prendere in carico</div>
-          <div class="perk">&#128276; Notifiche per il tuo paese</div>
+          <div class="perk"><span class="pk-ico">📍</span>Indirizzo esatto di ogni segnalazione</div>
+          <div class="perk"><span class="pk-ico">📞</span>Contatti diretti di chi ha segnalato</div>
+          <div class="perk"><span class="pk-ico">🤝</span>Puoi rispondere e prendere in carico</div>
+          <div class="perk"><span class="pk-ico">🔔</span>Notifiche per il tuo paese</div>
         </div>
-        <a class="btn-go" href="index.html">Vai a Stray</a>
+        <a class="btn-go" href="index.html">Vai a Stray <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></a>
       </div>
     </div>
 
@@ -315,172 +289,94 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 <div class="toast" id="toast"></div>
 
 <script>
-// STARS
-(function(){
-  var c=document.getElementById('stars'),ctx=c.getContext('2d');
-  function init(){c.width=window.innerWidth;c.height=window.innerHeight;c.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;';}
-  init();window.addEventListener('resize',init);
-  var S=[];for(var i=0;i<110;i++)S.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*.9+.25,o:Math.random()*.45+.1,sp:Math.random()*.7+.3});
-  var t=0;
-  (function draw(){ctx.clearRect(0,0,c.width,c.height);t+=.01;S.forEach(function(s){var a=s.o*(.5+.5*Math.sin(t*s.sp+s.x));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,'+a.toFixed(2)+')';ctx.fill();});requestAnimationFrame(draw);})();
-})();
-
-// COUNTRIES
 var COUNTRIES=[
-  {code:'IT',name:'Italia'},{code:'ES',name:'Spagna'},
-  {code:'FR',name:'Francia'},{code:'DE',name:'Germania'},
-  {code:'PT',name:'Portogallo'},{code:'GR',name:'Grecia'},
-  {code:'NL',name:'Olanda'},{code:'PL',name:'Polonia'},
-  {code:'HR',name:'Croazia'},{code:'AT',name:'Austria'},
-  {code:'BE',name:'Belgio'},{code:'CH',name:'Svizzera'},
+  {code:'IT',name:'Italia',flag:'🇮🇹'},{code:'FR',name:'Francia',flag:'🇫🇷'},
+  {code:'DE',name:'Germania',flag:'🇩🇪'},{code:'ES',name:'Spagna',flag:'🇪🇸'},
+  {code:'PT',name:'Portogallo',flag:'🇵🇹'},{code:'NL',name:'Paesi Bassi',flag:'🇳🇱'},
+  {code:'BE',name:'Belgio',flag:'🇧🇪'},{code:'PL',name:'Polonia',flag:'🇵🇱'},
+  {code:'GR',name:'Grecia',flag:'🇬🇷'},{code:'HR',name:'Croazia',flag:'🇭🇷'},
+  {code:'AT',name:'Austria',flag:'🇦🇹'},{code:'CH',name:'Svizzera',flag:'🇨🇭'}
 ];
-var selPaese=null;
+var selPaese=null, selAvatar='cat';
 var grid=document.getElementById('cgrid');
 COUNTRIES.forEach(function(c){
-  var d=document.createElement('button');
-  d.className='cbtn';d.textContent=c.name;d.dataset.code=c.code;
-  d.onclick=function(){
-    document.querySelectorAll('.cbtn').forEach(function(b){b.classList.remove('sel');});
-    d.classList.add('sel');selPaese={code:c.code,name:c.name};
-  };
+  var d=document.createElement('button');d.className='cbtn';d.type='button';
+  d.innerHTML='<span class="cf">'+c.flag+'</span>'+c.name;d.dataset.code=c.code;
+  d.onclick=function(){document.querySelectorAll('.cbtn').forEach(function(b){b.classList.remove('sel');});d.classList.add('sel');selPaese={code:c.code,name:c.name};};
   grid.appendChild(d);
 });
+document.getElementById('avatar-row').addEventListener('click',function(e){
+  var t=e.target.closest('.av');if(!t)return;
+  document.querySelectorAll('#avatar-row .av').forEach(function(a){a.classList.remove('sel');});
+  t.classList.add('sel');selAvatar=t.dataset.av;
+});
 
-// STATE
-var tipoAccount='privato';
-var userData={};
-var cur='s0';
+var tipoAccount='privato', userData={}, cur='s0';
 var STEP_MAP={s0:0,s1:1,'s2-priv':2,'s2-asso':2,s3:3,s4:4};
-var TOTAL=5;
 
-function goTo(screenId){
-  // accept numeric for legacy calls from buttons
-  if(typeof screenId==='number'){
-    var map={0:'s0',1:'s1',2:tipoAccount==='privato'?'s2-priv':'s2-asso',3:'s3',4:'s4'};
-    screenId=map[screenId];
-  }
+function goTo(target){
+  if(typeof target==='number'){var map={0:'s0',1:'s1',2:tipoAccount==='privato'?'s2-priv':'s2-asso',3:'s3',4:'s4'};target=map[target];}
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  document.getElementById(screenId).classList.add('active');
-  cur=screenId;
-  // dots
-  var idx=STEP_MAP[screenId]||0;
+  document.getElementById(target).classList.add('active');cur=target;
+  var idx=STEP_MAP[target]||0;
   for(var i=0;i<5;i++){
-    var d=document.getElementById('d'+i);
-    if(!d)continue;
-    d.classList.remove('active','done');
-    if(i<idx)d.classList.add('done');
-    if(i===idx)d.classList.add('active');
-    var l=document.getElementById('l'+i);
-    if(l)l.classList.toggle('done',i<idx);
+    var d=document.getElementById('d'+i);if(!d)continue;d.classList.remove('active','done');
+    if(i<idx)d.classList.add('done');if(i===idx)d.classList.add('active');
+    var l=document.getElementById('l'+i);if(l)l.classList.toggle('done',i<idx);
   }
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
-// TYPE
-function selType(t){
-  tipoAccount=t;
-  document.getElementById('t-priv').classList.toggle('sel',t==='privato');
-  document.getElementById('t-asso').classList.toggle('sel',t==='associazione');
-}
-
-// PASSWORD STRENGTH
+function selType(t){tipoAccount=t;document.getElementById('t-priv').classList.toggle('sel',t==='privato');document.getElementById('t-asso').classList.toggle('sel',t==='associazione');}
 function pwStr(v){
-  var fill=document.getElementById('sf'),lbl=document.getElementById('sl');
-  var score=0;
-  if(v.length>=8)score++;if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
-  var pct=[0,25,55,78,100][score];
-  var col=['','#b84040','#e8a44a','#8ec26a','#4aae6a'][score];
-  var lbs=['','Debole','Discreta','Buona','Ottima'][score];
-  fill.style.width=pct+'%';fill.style.background=col;
-  lbl.textContent=v.length?lbs:'';lbl.style.color=col;
+  var score=0;if(v.length>=8)score++;if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+  var pct=[0,25,55,78,100][score],col=['','#F2674A','#F2A93B','#8ECB7A','#1C9B73'][score],lbs=['','Debole','Discreta','Buona','Ottima'][score];
+  ['','2'].forEach(function(s){var f=document.getElementById('sf'+s),l=document.getElementById('sl'+s);if(f){f.style.width=pct+'%';f.style.background=col;}if(l){l.textContent=v.length?lbs:'';l.style.color=col;}});
 }
+function toggleT(id){document.getElementById(id).classList.toggle('on');}
 
-// TERMS
-function toggleT(){document.getElementById('tbox').classList.toggle('on');}
-function toggleT2(){document.getElementById('tbox2').classList.toggle('on');}
-
-// SHAKE + TOAST
-var ss=document.createElement('style');
-ss.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}';
-document.head.appendChild(ss);
-function shake(id){var el=document.getElementById(id);if(!el)return;el.classList.add('err');el.style.animation='shake .35s ease';setTimeout(function(){el.classList.remove('err');el.style.animation='';},400);}
+var ss=document.createElement('style');ss.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}';document.head.appendChild(ss);
+function shake(id){var el=document.getElementById(id);if(!el)return;el.classList.add('err');el.style.animation='shake .35s ease';setTimeout(function(){el.classList.remove('err');el.style.animation='';},420);}
 function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2600);}
 
-// STEP VALIDATORS
-function step1(){
-  goTo('s2-priv'); // or s2-asso based on type
-  if(tipoAccount==='associazione')goTo('s2-asso');
-  else goTo('s2-priv');
-}
-
+function step1(){goTo(tipoAccount==='associazione'?'s2-asso':'s2-priv');}
 function step2priv(){
-  var nome=document.getElementById('f-nome').value.trim();
-  var email=document.getElementById('f-email').value.trim();
-  var pass=document.getElementById('f-pass').value;
-  var pass2=document.getElementById('f-pass2').value;
+  var nome=val('f-nome'),email=val('f-email'),pass=document.getElementById('f-pass').value,pass2=document.getElementById('f-pass2').value;
   if(!nome){toast('Inserisci il tuo nome');shake('f-nome');return;}
-  if(!email||!email.includes('@')){toast('Email non valida');shake('f-email');return;}
+  if(!email||email.indexOf('@')<0){toast('Email non valida');shake('f-email');return;}
   if(pass.length<8){toast('Password di almeno 8 caratteri');shake('f-pass');return;}
   if(pass!==pass2){toast('Le password non coincidono');shake('f-pass2');return;}
-  userData.nome=nome;userData.email=email;userData.pass=pass;
-  goTo('s3');
+  userData.nome=nome;userData.email=email;userData.pass=pass;userData.avatar=selAvatar;goTo('s3');
 }
-
 function step2asso(){
-  var nome=document.getElementById('a-nome').value.trim();
-  var email=document.getElementById('a-email').value.trim();
-  var pass=document.getElementById('a-pass').value;
-  var pass2=document.getElementById('a-pass2').value;
-  var desc=document.getElementById('a-desc').value.trim();
-  if(!nome){toast('Inserisci il nome dell associazione');shake('a-nome');return;}
-  if(!email||!email.includes('@')){toast('Email non valida');shake('a-email');return;}
+  var nome=val('a-nome'),email=val('a-email'),pass=document.getElementById('a-pass').value,pass2=document.getElementById('a-pass2').value;
+  if(!nome){toast('Inserisci il nome dell\'associazione');shake('a-nome');return;}
+  if(!email||email.indexOf('@')<0){toast('Email non valida');shake('a-email');return;}
   if(pass.length<8){toast('Password di almeno 8 caratteri');shake('a-pass');return;}
   if(pass!==pass2){toast('Le password non coincidono');shake('a-pass2');return;}
-  userData.nome=nome;userData.email=email;userData.pass=pass;
-  userData.sito=document.getElementById('a-sito').value.trim();
-  userData.desc=desc;
-  goTo('s3');
+  userData.nome=nome;userData.email=email;userData.pass=pass;userData.sito=val('a-sito');userData.desc=val('a-desc');userData.avatar='dog';goTo('s3');
 }
-
-function step3(){
-  if(!selPaese){toast('Seleziona il tuo paese');return;}
-  userData.paese=selPaese;
-  goTo('s4');
-}
-
+function step3(){if(!selPaese){toast('Seleziona il tuo paese');return;}userData.paese=selPaese;goTo('s4');}
 function step4(){
-  if(!document.getElementById('tbox').classList.contains('on')){
-    toast('Devi accettare i termini per continuare');return;
-  }
-  var btn=document.getElementById('btn-reg');
-  btn.textContent='Registrazione in corso...';btn.disabled=true;
+  if(!document.getElementById('tbox').classList.contains('on')){toast('Devi accettare i termini per continuare');return;}
+  var btn=document.getElementById('btn-reg');btn.textContent='Creazione in corso…';btn.disabled=true;
   userData.tipo=tipoAccount;
-
-  // --- qui andra Supabase auth.signUp() ---
   setTimeout(function(){
     localStorage.setItem('stray_user',JSON.stringify(userData));
-    // populate success screen
     var isAsso=tipoAccount==='associazione';
-    document.getElementById('ok-title').textContent=isAsso
-      ? 'Associazione registrata.'
-      : 'Benvenuto, volontario.';
+    document.getElementById('ok-title').textContent=isAsso?'Associazione registrata.':'Benvenuto, volontario!';
     document.getElementById('ok-sub').textContent=isAsso
-      ? userData.nome+' e ora su Stray.\nGli utenti potranno contattarvi direttamente.'
-      : 'Il tuo account e pronto, '+userData.nome.split(' ')[0]+'.';
-    document.getElementById('ok-badge').textContent=
-      (isAsso?'&#127968; ':'')+userData.paese.name+' — '+(isAsso?'Associazione':'Volontario');
+      ? userData.nome+' è ora su Stray.\nGli utenti potranno contattarvi direttamente.'
+      : 'Il tuo account è pronto, '+userData.nome.split(' ')[0]+'.';
+    document.getElementById('ok-badge').innerHTML=(isAsso?'🏠 ':userData.paese.flag+' ')+userData.paese.name+' — '+(isAsso?'Associazione':'Volontario');
     document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
     document.getElementById('s-ok').classList.add('active');
-    document.getElementById('step-dots').style.display='none';
-  },1500);
+    document.getElementById('progress').style.display='none';
+  },1200);
 }
-
+function val(id){return document.getElementById(id).value.trim();}
 document.addEventListener('keydown',function(e){
   if(e.key!=='Enter')return;
-  if(cur==='s2-priv')step2priv();
-  else if(cur==='s2-asso')step2asso();
-  else if(cur==='s3')step3();
-  else if(cur==='s4')step4();
+  if(cur==='s2-priv')step2priv();else if(cur==='s2-asso')step2asso();else if(cur==='s3')step3();else if(cur==='s4')step4();
 });
 </script>
 </body>
