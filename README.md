@@ -27,6 +27,11 @@ con foto e posizione e coordinati con i volontari della zona.
 
 ## Come provarlo
 
+> Tieni `hero.mp4` nella stessa cartella di `index.html`: è il video di sfondo
+> della home (un volontario che salva un animale). Se manca o sei offline, parte
+> automaticamente un video di riserva online e, in mancanza di rete, restano gli
+> sfondi animati.
+
 Apri `index.html` nel browser, oppure servi la cartella:
 
 ```bash
