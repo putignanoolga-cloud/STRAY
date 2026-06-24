@@ -49,6 +49,17 @@ a{color:inherit;}
 .btn-reg{display:inline-flex;align-items:center;gap:7px;padding:0 18px;height:42px;border-radius:13px;background:var(--ink);color:#fff;font-size:.86rem;font-weight:600;text-decoration:none;transition:all .18s;white-space:nowrap;}
 .btn-reg:hover{background:var(--green);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
 @media(max-width:430px){.btn-reg span{display:none;}.btn-reg{padding:0;width:42px;justify-content:center;}}
+/* ── NAV SCROLLING POEM (insegna) ── */
+.nav .brand,.nav .nav-actions{flex-shrink:0;}
+.nav-poem{flex:1;min-width:0;overflow:hidden;margin:0 20px;display:flex;align-items:center;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);}
+.nav-poem-track{display:flex;flex-shrink:0;white-space:nowrap;will-change:transform;animation:nav-marquee 75s linear infinite;}
+.nav-poem:hover .nav-poem-track{animation-play-state:paused;}
+.nav-poem-quote{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:.92rem;color:var(--ink-soft);}
+.nav-poem-quote .sep{font-style:normal;color:var(--green);margin:0 30px;font-size:.78rem;vertical-align:middle;}
+@keyframes nav-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media(max-width:860px){.nav-poem{display:none;}}
 
 /* ── HERO ──────────────────────────────────── */
 .hero{position:relative;overflow:hidden;padding:42px 20px 56px;}
@@ -266,6 +277,12 @@ a{color:inherit;}
     </span>
     <span class="brand-name">Str<b>a</b>y</span>
   </a>
+  <div class="nav-poem" aria-label="Poesia Stray">
+    <div class="nav-poem-track">
+      <span class="nav-poem-quote">«You can't save them all, you know?» — «I know. But that's not why I do it.» — «Then why do you do it?» — «Because… what if it was you? What if it was you, stuck in a place where the only sun you knew was a flickering light bulb? What if it was you, so tightly confined you never knew what it felt like to stretch out your arms? What if it was you? I fight against it because, if it was you in that cage, you'd pray every day for someone to come and help — and the only difference between you and them is that you were born on the right side of the fence.»<span class="sep">✦</span></span>
+      <span class="nav-poem-quote">«You can't save them all, you know?» — «I know. But that's not why I do it.» — «Then why do you do it?» — «Because… what if it was you? What if it was you, stuck in a place where the only sun you knew was a flickering light bulb? What if it was you, so tightly confined you never knew what it felt like to stretch out your arms? What if it was you? I fight against it because, if it was you in that cage, you'd pray every day for someone to come and help — and the only difference between you and them is that you were born on the right side of the fence.»<span class="sep">✦</span></span>
+    </div>
+  </div>
   <div class="nav-actions">
     <a class="icon-btn" href="account.html" aria-label="Account">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
