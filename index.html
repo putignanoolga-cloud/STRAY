@@ -67,7 +67,9 @@ a{color:inherit;}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(28,155,115,.45);}70%{box-shadow:0 0 0 9px rgba(28,155,115,0);}100%{box-shadow:0 0 0 0 rgba(28,155,115,0);}}
 .hero h1{font-family:"Fraunces",serif;font-size:clamp(2.3rem,8.5vw,3.4rem);font-weight:500;line-height:1.04;letter-spacing:-0.02em;margin-bottom:16px;animation:rise .7s .05s both;}
 .hero h1 em{font-style:italic;color:var(--green);}
-.hero p.lead{font-size:1rem;line-height:1.6;color:var(--ink-soft);max-width:430px;margin:0 auto 28px;animation:rise .7s .12s both;}
+.hero p.lead{font-size:1rem;line-height:1.6;color:var(--ink-soft);max-width:430px;margin:0 auto 14px;animation:rise .7s .12s both;}
+.lead-note{display:flex;align-items:flex-start;gap:10px;max-width:448px;margin:0 auto 26px;padding:12px 16px;background:var(--green-soft);border:1px solid rgba(28,155,115,.2);border-radius:16px;font-size:.87rem;line-height:1.5;font-weight:500;color:var(--green-dark);text-align:left;animation:rise .7s .15s both;}
+.lead-note .ln-ico{font-size:1.15rem;flex-shrink:0;line-height:1.35;}
 @keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
 /* SEARCH */
@@ -270,6 +272,7 @@ a{color:inherit;}
     <span class="eyebrow"><span class="pulse"></span>Una rete di aiuto in tutta Europa</span>
     <h1>Ogni animale merita<br>qualcuno che <em>si fermi.</em></h1>
     <p class="lead">Trova i contatti di emergenza, segnala un randagio o un animale in difficoltà e coordinati con i volontari vicino a te.</p>
+    <p class="lead-note"><span class="ln-ico">💚</span><span>E se ti trovi davanti a un animale in difficoltà, prova a prestargli tu il primo soccorso o ad aiutarlo nel modo migliore: il tuo gesto può salvargli la vita.</span></p>
 
     <div class="search-wrap">
       <div class="search-box">
