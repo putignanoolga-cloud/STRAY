@@ -49,9 +49,24 @@ a{color:inherit;}
 .btn-reg{display:inline-flex;align-items:center;gap:7px;padding:0 18px;height:42px;border-radius:13px;background:var(--ink);color:#fff;font-size:.86rem;font-weight:600;text-decoration:none;transition:all .18s;white-space:nowrap;}
 .btn-reg:hover{background:var(--green);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
 @media(max-width:430px){.btn-reg span{display:none;}.btn-reg{padding:0;width:42px;justify-content:center;}}
+/* ── NAV SCROLLING POEM (insegna) ── */
+.nav .brand,.nav .nav-actions{flex-shrink:0;}
+.nav-poem{flex:1;min-width:0;overflow:hidden;margin:0 20px;display:flex;align-items:center;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);}
+.nav-poem-track{display:flex;flex-shrink:0;white-space:nowrap;will-change:transform;animation:nav-marquee 75s linear infinite;}
+.nav-poem:hover .nav-poem-track{animation-play-state:paused;}
+.nav-poem-quote{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:.92rem;color:var(--ink-soft);}
+.nav-poem-quote .sep{font-style:normal;color:var(--green);margin:0 30px;font-size:.78rem;vertical-align:middle;}
+@keyframes nav-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media(max-width:860px){.nav-poem{display:none;}}
 
 /* ── HERO ──────────────────────────────────── */
 .hero{position:relative;overflow:hidden;padding:42px 20px 56px;}
+/* semi-transparent background video */
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.58;z-index:0;pointer-events:none;filter:saturate(1.05) contrast(1.02);}
+.hero-veil{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(251,247,240,.46) 0%,rgba(251,247,240,.6) 55%,rgba(251,247,240,.92) 90%,var(--bg) 100%);}
 .blob{position:absolute;border-radius:50%;filter:blur(46px);opacity:.55;pointer-events:none;z-index:0;animation:drift 18s ease-in-out infinite;}
 .blob.b1{width:340px;height:340px;background:radial-gradient(circle,#A7E3CC,transparent 70%);top:-120px;right:-80px;}
 .blob.b2{width:300px;height:300px;background:radial-gradient(circle,#FBD3C6,transparent 70%);bottom:-120px;left:-90px;animation-delay:-6s;}
@@ -63,7 +78,9 @@ a{color:inherit;}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(28,155,115,.45);}70%{box-shadow:0 0 0 9px rgba(28,155,115,0);}100%{box-shadow:0 0 0 0 rgba(28,155,115,0);}}
 .hero h1{font-family:"Fraunces",serif;font-size:clamp(2.3rem,8.5vw,3.4rem);font-weight:500;line-height:1.04;letter-spacing:-0.02em;margin-bottom:16px;animation:rise .7s .05s both;}
 .hero h1 em{font-style:italic;color:var(--green);}
-.hero p.lead{font-size:1rem;line-height:1.6;color:var(--ink-soft);max-width:430px;margin:0 auto 28px;animation:rise .7s .12s both;}
+.hero p.lead{font-size:1rem;line-height:1.6;color:var(--ink-soft);max-width:430px;margin:0 auto 14px;animation:rise .7s .12s both;}
+.lead-note{display:flex;align-items:flex-start;gap:10px;max-width:448px;margin:0 auto 26px;padding:12px 16px;background:var(--green-soft);border:1px solid rgba(28,155,115,.2);border-radius:16px;font-size:.87rem;line-height:1.5;font-weight:500;color:var(--green-dark);text-align:left;animation:rise .7s .15s both;}
+.lead-note .ln-ico{font-size:1.15rem;flex-shrink:0;line-height:1.35;}
 @keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
 /* SEARCH */
@@ -93,6 +110,20 @@ a{color:inherit;}
 
 /* GLOBE STATS STRIP */
 .stats-strip{display:flex;gap:10px;max-width:520px;margin:38px auto 0;animation:rise .7s .3s both;}
+/* ── DESKTOP: hero a due colonne, riempie lo schermo ── */
+@media(min-width:920px){
+  .hero{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 70px);padding:48px 44px 60px;}
+  .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;width:100%;max-width:1180px;text-align:left;}
+  .hero-left{max-width:580px;}
+  .hero h1{font-size:clamp(2.7rem,4.3vw,3.9rem);}
+  .hero p.lead{margin:0 0 14px;max-width:520px;}
+  .lead-note{margin:0;max-width:520px;}
+  .hero-right{background:rgba(255,255,255,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:28px;padding:30px;box-shadow:var(--shadow-lg);}
+  .search-wrap{max-width:none;margin:0;}
+  .quick{justify-content:flex-start;margin-top:20px;}
+  .quick .q-lbl{text-align:left;}
+  .stats-strip{max-width:none;margin:26px 0 0;}
+}
 .stat-pill{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 12px;text-align:center;box-shadow:var(--shadow-sm);}
 .stat-pill .num{font-family:"Fraunces",serif;font-size:1.7rem;font-weight:600;color:var(--green);line-height:1;}
 .stat-pill .lbl{font-size:.68rem;color:var(--ink-soft);margin-top:6px;font-weight:500;}
@@ -246,6 +277,12 @@ a{color:inherit;}
     </span>
     <span class="brand-name">Str<b>a</b>y</span>
   </a>
+  <div class="nav-poem" aria-label="Poesia Stray">
+    <div class="nav-poem-track">
+      <span class="nav-poem-quote">«You can't save them all, you know?» — «I know. But that's not why I do it.» — «Then why do you do it?» — «Because… what if it was you? What if it was you, stuck in a place where the only sun you knew was a flickering light bulb? What if it was you, so tightly confined you never knew what it felt like to stretch out your arms? What if it was you? I fight against it because, if it was you in that cage, you'd pray every day for someone to come and help — and the only difference between you and them is that you were born on the right side of the fence.»<span class="sep">✦</span></span>
+      <span class="nav-poem-quote">«You can't save them all, you know?» — «I know. But that's not why I do it.» — «Then why do you do it?» — «Because… what if it was you? What if it was you, stuck in a place where the only sun you knew was a flickering light bulb? What if it was you, so tightly confined you never knew what it felt like to stretch out your arms? What if it was you? I fight against it because, if it was you in that cage, you'd pray every day for someone to come and help — and the only difference between you and them is that you were born on the right side of the fence.»<span class="sep">✦</span></span>
+    </div>
+  </div>
   <div class="nav-actions">
     <a class="icon-btn" href="account.html" aria-label="Account">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
@@ -259,12 +296,18 @@ a{color:inherit;}
 
 <!-- HERO -->
 <header class="hero">
+  <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
+  <div class="hero-veil"></div>
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="hero-inner">
+    <div class="hero-left">
     <span class="eyebrow"><span class="pulse"></span>Una rete di aiuto in tutta Europa</span>
     <h1>Ogni animale merita<br>qualcuno che <em>si fermi.</em></h1>
     <p class="lead">Trova i contatti di emergenza, segnala un randagio o un animale in difficoltà e coordinati con i volontari vicino a te.</p>
+    <p class="lead-note"><span class="ln-ico">💚</span><span>Se incontri un animale in difficoltà, fermati e prenditene cura: anche un piccolo gesto di soccorso può salvargli la vita.</span></p>
+    </div><!-- /hero-left -->
 
+    <div class="hero-right">
     <div class="search-wrap">
       <div class="search-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -285,6 +328,7 @@ a{color:inherit;}
       <div class="stat-pill"><div class="num" id="stat-reports">0</div><div class="lbl">Segnalazioni</div></div>
       <div class="stat-pill"><div class="num">24h</div><div class="lbl">Sempre attivi</div></div>
     </div>
+    </div><!-- /hero-right -->
   </div>
 </header>
 
@@ -709,6 +753,31 @@ function toast(msg){var t=document.getElementById('toast');document.getElementBy
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMenu();['reports-modal','info-modal','contact-modal'].forEach(function(id){var m=document.getElementById(id);if(m.style.display==='block')closeModal(id);});}});
 
 updateHome();
+
+/* ─────────────────────────────────────────────
+   HERO BACKGROUND VIDEO (semi-transparent)
+   Per usare un tuo video: metti il suo URL .mp4
+   come PRIMO elemento di HERO_VIDEOS qui sotto.
+───────────────────────────────────────────── */
+var HERO_VIDEOS=[
+  'hero.mp4',                                                                              // video locale: volontario che salva un animale
+  'https://mdn.github.io/shared-assets/videos/flower.mp4',                                 // riserva online (natura, CC0)
+  'https://www.w3schools.com/html/mov_bbb.mp4',                                            // riserva affidabilissima
+  'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'     // riserva finale (Google)
+];
+(function(){
+  var v=document.getElementById('hero-video');if(!v)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.remove();return;}
+  var i=0;
+  function tryNext(){
+    if(i>=HERO_VIDEOS.length){v.style.display='none';return;} // tutti falliti (offline) -> restano i blob
+    v.src=HERO_VIDEOS[i++];
+    v.load();
+    var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});
+  }
+  v.addEventListener('error',tryNext,true);
+  tryNext();
+})();
 </script>
 </body>
 </html>
