@@ -99,6 +99,20 @@ a{color:inherit;}
 
 /* GLOBE STATS STRIP */
 .stats-strip{display:flex;gap:10px;max-width:520px;margin:38px auto 0;animation:rise .7s .3s both;}
+/* ── DESKTOP: hero a due colonne, riempie lo schermo ── */
+@media(min-width:920px){
+  .hero{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 70px);padding:48px 44px 60px;}
+  .hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;width:100%;max-width:1180px;text-align:left;}
+  .hero-left{max-width:580px;}
+  .hero h1{font-size:clamp(2.7rem,4.3vw,3.9rem);}
+  .hero p.lead{margin:0 0 14px;max-width:520px;}
+  .lead-note{margin:0;max-width:520px;}
+  .hero-right{background:rgba(255,255,255,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);border-radius:28px;padding:30px;box-shadow:var(--shadow-lg);}
+  .search-wrap{max-width:none;margin:0;}
+  .quick{justify-content:flex-start;margin-top:20px;}
+  .quick .q-lbl{text-align:left;}
+  .stats-strip{max-width:none;margin:26px 0 0;}
+}
 .stat-pill{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 12px;text-align:center;box-shadow:var(--shadow-sm);}
 .stat-pill .num{font-family:"Fraunces",serif;font-size:1.7rem;font-weight:600;color:var(--green);line-height:1;}
 .stat-pill .lbl{font-size:.68rem;color:var(--ink-soft);margin-top:6px;font-weight:500;}
@@ -269,11 +283,14 @@ a{color:inherit;}
   <div class="hero-veil"></div>
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="hero-inner">
+    <div class="hero-left">
     <span class="eyebrow"><span class="pulse"></span>Una rete di aiuto in tutta Europa</span>
     <h1>Ogni animale merita<br>qualcuno che <em>si fermi.</em></h1>
     <p class="lead">Trova i contatti di emergenza, segnala un randagio o un animale in difficoltà e coordinati con i volontari vicino a te.</p>
     <p class="lead-note"><span class="ln-ico">💚</span><span>Se incontri un animale in difficoltà, fermati e prenditene cura: anche un piccolo gesto di soccorso può salvargli la vita.</span></p>
+    </div><!-- /hero-left -->
 
+    <div class="hero-right">
     <div class="search-wrap">
       <div class="search-box">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -294,6 +311,7 @@ a{color:inherit;}
       <div class="stat-pill"><div class="num" id="stat-reports">0</div><div class="lbl">Segnalazioni</div></div>
       <div class="stat-pill"><div class="num">24h</div><div class="lbl">Sempre attivi</div></div>
     </div>
+    </div><!-- /hero-right -->
   </div>
 </header>
 
